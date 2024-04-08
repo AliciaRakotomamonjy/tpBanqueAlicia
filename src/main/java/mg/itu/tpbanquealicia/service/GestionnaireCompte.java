@@ -5,7 +5,7 @@
 package mg.itu.tpbanquealicia.service;
 
 import jakarta.annotation.sql.DataSourceDefinition;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -33,7 +33,7 @@ import mg.itu.tpbanquealicia.entity.CompteBancaire;
       "serverTimezone=UTC",
     }
 )
-@RequestScoped
+@Dependent
 public class GestionnaireCompte {
     @PersistenceContext(unitName = "banquePU")
     private EntityManager em;
@@ -54,6 +54,11 @@ public class GestionnaireCompte {
     public List<CompteBancaire> getAllCompteBancaires() {
         TypedQuery<CompteBancaire> query = em.createNamedQuery("CompteBancaire.findAll", CompteBancaire.class);
         return query.getResultList();
+    }
+    
+    public Long nbComptes() {
+        Query query = em.createQuery("SELECT count(c) FROM CompteBancaire c");
+        return (long) query.getSingleResult();
     }
 
     
