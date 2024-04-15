@@ -94,7 +94,7 @@ public class TransfertArgent {
         }
 
         gestionnaireCompte.transferer(source, destination, montant);
-        Util.addFlashInfoMessage("Transfert correctement effectué");
+         Util.addFlashInfoMessage("Transfert de "+montant+" Ar depuis "+source.getNom()+" vers "+destination.getNom()+" correctement effectué!");
         return "listeComptes?faces-redirect=true";
     }
 
