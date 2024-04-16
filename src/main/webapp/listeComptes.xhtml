@@ -38,21 +38,30 @@
                                 <h:outputText value="Id"/>
                             </f:facet>
                             <h:link outcome="/mouvement?id=#{compte.id}" 
-                                value="#{compte.id}"
-                            />
+                                    value="#{compte.id}"
+                                    />
                         </p:column>
 
-                        <p:column sortBy="#{compte.nom}" filterBy="#{compte.nom}" filterMatchMode="contains" >
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="Propríétaire"/>
                             </f:facet>
                             <h:outputText value="#{compte.nom}"/>
                         </p:column>
-                        <p:column  sortBy="#{compte.solde} " filterBy="#{compte.solde}" filterMatchMode="lte" converter="javax.faces.Integer">
+                        <p:column  >
                             <f:facet name="header">
                                 <h:outputText value="Solde du compte"/>
                             </f:facet>
                             <h:outputText value="#{compte.solde}"/>
+                        </p:column>
+                        <p:column width="20">
+                            <f:facet name="header">
+                                <h:outputText value="Opérations"/>
+                            </f:facet>
+                            <h:commandLink action="#{listeComptes.supprimerCompte(compte)}"
+                                           title="Supprimer le compte de #{compte.nom}" >
+                                <h:graphicImage name="images/del.png"/>
+                            </h:commandLink>
                         </p:column>
                     </p:dataTable>
                 </h:form>
