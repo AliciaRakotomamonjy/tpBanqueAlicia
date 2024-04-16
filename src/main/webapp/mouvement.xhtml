@@ -23,7 +23,7 @@
 
             <ui:define name="content">
 
-                <h:outputText value="Aucun client avec l'id #{mouvement.id} !" rendered='#{mouvement.compte == null}'/>
+                <h:outputText value="Aucun compte avec l'id #{mouvement.id} !" rendered='#{mouvement.compte == null}'/>
 
                 <h:form rendered='#{mouvement.compte != null}' >
                     <h:panelGrid columns="3">
