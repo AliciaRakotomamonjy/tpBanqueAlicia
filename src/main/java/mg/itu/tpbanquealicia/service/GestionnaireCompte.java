@@ -78,14 +78,40 @@ public class GestionnaireCompte {
     public CompteBancaire update(CompteBancaire compteBancaire) {
         return em.merge(compteBancaire);
     }
-    
+
     /**
-     * Méthode pour rechercher un compte bancaire à partir de son idCompteBancaire
+     * Méthode pour rechercher un compte bancaire à partir de son
+     * idCompteBancaire
+     *
      * @param idCompteBancaire
-     * @return 
+     * @return
      */
-    public CompteBancaire findById(long idCompteBancaire) {  
+    public CompteBancaire findById(long idCompteBancaire) {
         return em.find(CompteBancaire.class, idCompteBancaire);
+    }
+
+    /**
+     * Dépôt d'argent sur un compte bancaire.
+     *
+     * @param compteBancaire
+     * @param montant
+     */
+    @Transactional
+    public void deposer(CompteBancaire compteBancaire, int montant) {
+        compteBancaire.deposer(montant);
+        update(compteBancaire);
+    }
+
+    /**
+     * Retrait d'argent sur un compte bancaire.
+     *
+     * @param compteBancaire
+     * @param montant
+     */
+    @Transactional
+    public void retirer(CompteBancaire compteBancaire, int montant) {
+        compteBancaire.retirer(montant);
+        update(compteBancaire);
     }
 
 }
