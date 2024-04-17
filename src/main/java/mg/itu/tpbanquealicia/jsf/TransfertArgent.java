@@ -58,6 +58,10 @@ public class TransfertArgent {
 
     public String transferer() {
         boolean erreur = false;
+        if(idSource == idDestination){
+            Util.messageErreur("La source et la destination sont les mêmes !", "La source et la destination sont les mêmes !", "form");
+            erreur = true;
+        }
         CompteBancaire source = gestionnaireCompte.findById(idSource);
         if (source == null) {
             // Message d'erreur associé au composant source ; form:source est l'id client

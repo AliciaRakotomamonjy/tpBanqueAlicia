@@ -8,6 +8,7 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -108,7 +109,7 @@ public class Mouvement implements Serializable {
                         = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                 "Le retrait doit être inférieur au solde du compte",
                                 "Le retrait doit être inférieur au solde du compte");
-//                throw new ValidatorException(message);
+                throw new ValidatorException(message);
             }
         }
     }

@@ -44,7 +44,8 @@
                         Montant du mouvement :
                         <h:inputText id="montant" value="#{mouvement.montant}"
                                      required="true"
-                                     requiredMessage="Veuillez saisir un montant"/>
+                                     requiredMessage="Veuillez saisir un montant"
+                                     validator="#{mouvement.validateSolde}"/>
                         <h:message for="montant"/>
                     </h:panelGrid>
                     <h:commandButton action="#{mouvement.enregistrerMouvement()}"
