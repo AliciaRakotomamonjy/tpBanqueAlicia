@@ -4,18 +4,24 @@
  */
 package mg.itu.tpbanquealicia.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Un compte bancaire
+ *
  * @author alici
  */
 @Entity
@@ -32,9 +38,16 @@ public class CompteBancaire implements Serializable {
 
     @Column(name = "NOM")
     private String nom;
-    
+
     @Column(name = "SOLDE")
     private int solde;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OperationBancaire> operations = new ArrayList<>();
+
+    public List<OperationBancaire> getOperations() {
+        return operations;
+    }
 
     public String getNom() {
         return nom;
@@ -87,26 +100,33 @@ public class CompteBancaire implements Serializable {
     public CompteBancaire(String nom, int solde) {
         this.nom = nom;
         this.solde = solde;
+        operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     /**
      * Méthode pour ajouter de l'argent
-     * @param montant 
+     *
+     * @param montant
      */
     public void deposer(int montant) {
         solde += montant;
+        operations.add(new OperationBancaire("Crédit", montant));
     }
-    
+
     /**
      * Méthode pour retirer de l'argent
-     * @param montant 
+     *
+     * @param montant
      */
     public void retirer(int montant) {
         if (montant < solde) {
             solde -= montant;
+            operations.add(new OperationBancaire("Débit", -montant));
         } else {
             solde = 0;
+            operations.add(new OperationBancaire("Débit", -solde));
         }
+        
     }
 
 }
