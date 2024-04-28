@@ -15,6 +15,7 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,9 @@ public class CompteBancaire implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OperationBancaire> operations = new ArrayList<>();
+
+    @Version
+    private int version;
 
     public List<OperationBancaire> getOperations() {
         return operations;
@@ -126,7 +130,7 @@ public class CompteBancaire implements Serializable {
             solde = 0;
             operations.add(new OperationBancaire("Débit", -solde));
         }
-        
+
     }
 
 }
